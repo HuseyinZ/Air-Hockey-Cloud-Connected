@@ -1,14 +1,5 @@
 #!/bin/bash
-# ═══════════════════════════════════════════════════════════
-# CloudMorph Air Hockey — AWS Academy Learner Lab Deployment
-# ═══════════════════════════════════════════════════════════
-#
-# AWS Academy Learner Lab'a özel deploy scripti.
-# Learner Lab'ın kısıtlamalarına uygun çalışır:
-#   - Sabit region (us-east-1)
-#   - Önceden oluşturulmuş LabRole
-#   - Session credentials (geçici)
-#
+
 # Kullanım:
 #   chmod +x academy-deploy.sh
 #   ./academy-deploy.sh
