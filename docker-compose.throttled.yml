@@ -1,0 +1,45 @@
+# ════════════════════════════════════════════════════════════════
+# Throttled Docker Compose — AWS t2.micro performansını simüle et
+#
+# t2.micro burstable CPU modeli kullanır:
+#   - Baseline: 10% of 1 vCPU sustained
+#   - Burst: 100% kısa süreliğine, sonra credit tükenir
+#
+# Sürekli yük altında t2.micro ortalama olarak ~%50 CPU performansı
+# verir (10% baseline + arada burst). Bu yüzden local'i 0.5 CPU'ya
+# kısarak benzer ortalama performans elde edebiliriz.
+#
+# Kullanım:
+#   docker compose -f docker-compose.throttled.yml up --build -d
+#   docker exec backend-throttled node stress-test.js \
+#     --max-time 60000 --start 100 --step 100 --max 1000
+# ════════════════════════════════════════════════════════════════
+
+services:
+  backend:
+    build: ./backend
+    container_name: backend-throttled
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    # t2.micro sustained throughput simulation
+    cpus: '0.5'
+    mem_limit: 1g
+    memswap_limit: 1g
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 1024M
+
+  frontend:
+    build: ./frontend
+    container_name: frontend-throttled
+    depends_on:
+      backend:
+        condition: service_started
+    ports:
+      - "8081:80"
+    restart: unless-stopped
+    cpus: '0.25'
+    mem_limit: 128m

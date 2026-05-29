@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "tool": "CloudMorph Stress Test",
+    "version": "1.0.0",
+    "timestamp": "2026-05-28T19:50:33.644Z",
+    "parameters": {
+      "maxDurationMs": 30000,
+      "maxHeapMB": 500,
+      "startN": 100,
+      "stepN": 100,
+      "maxN": 1500
+    },
+    "system": {
+      "cpuModel": "11th Gen Intel(R) Core(TM) i7-11800H @ 2.30GHz",
+      "cpuCount": 2,
+      "totalMemoryGB": 3.8,
+      "platform": "linux",
+      "arch": "x64",
+      "nodeVersion": "v22.22.0",
+      "hostname": "claude"
+    },
+    "breakingPoint": 300,
+    "breakReason": "Exception thrown: botCount must be between 2 and 200"
+  },
+  "results": [
+    {
+      "botCount": 100,
+      "matchCount": 4950,
+      "totalMs": 2513,
+      "avgMatchMs": 0.51,
+      "maxMatchMs": 9.38,
+      "heapMB": 6.6,
+      "rssMB": 62.3,
+      "status": "OK",
+      "timestamp": "2026-05-28T19:50:23.722Z"
+    },
+    {
+      "botCount": 200,
+      "matchCount": 19900,
+      "totalMs": 9914,
+      "avgMatchMs": 0.5,
+      "maxMatchMs": 6.42,
+      "heapMB": 11.9,
+      "rssMB": 76.5,
+      "status": "OK",
+      "timestamp": "2026-05-28T19:50:33.643Z"
+    },
+    {
+      "botCount": 300,
+      "matchCount": 44850,
+      "totalMs": null,
+      "status": "EXCEPTION",
+      "error": "botCount must be between 2 and 200",
+      "timestamp": "2026-05-28T19:50:33.644Z"
+    }
+  ]
+}

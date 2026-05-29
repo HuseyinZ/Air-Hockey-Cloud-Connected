@@ -1,0 +1,3 @@
+botCount,matchCount,totalMs,avgMatchMs,maxMatchMs,heapMB,rssMB,status,timestamp
+200,19900,9824,0.49,15.95,15.2,72.9,"OK","2026-05-28T19:52:18.325Z"
+300,44850,22395,0.5,10.09,28.6,98.1,"FAIL","2026-05-28T19:52:40.725Z"

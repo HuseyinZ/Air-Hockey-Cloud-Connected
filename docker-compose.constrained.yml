@@ -1,0 +1,51 @@
+# ════════════════════════════════════════════════════════════════
+# Constrained Docker Compose — t2.micro spec eşleştirmesi
+#
+# AWS EC2 t2.micro = 1 vCPU + 1 GiB RAM
+# Bu dosya local Docker'ı aynı kaynaklara kısıtlar — bu sayede
+# AWS vs Local karşılaştırması adil olur (hardware farkı izole edilir).
+#
+# Kullanım:
+#   docker compose -f docker-compose.constrained.yml up --build -d
+#
+# Stress test çalıştırmak:
+#   docker exec backend node stress-test.js --max-time 60000 \
+#     --start 100 --step 100 --max 2000
+# ════════════════════════════════════════════════════════════════
+
+services:
+  backend:
+    build: ./backend
+    container_name: backend-constrained
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    # t2.micro: 1 vCPU, 1 GiB RAM
+    cpus: '1.0'
+    mem_limit: 1g
+    memswap_limit: 1g
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1024M
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  frontend:
+    build: ./frontend
+    container_name: frontend-constrained
+    depends_on:
+      backend:
+        condition: service_started
+    ports:
+      - "8081:80"
+    restart: unless-stopped
+    cpus: '0.25'
+    mem_limit: 128m

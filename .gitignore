@@ -1,0 +1,47 @@
+# ════════════════════════════════════════════════════════════════
+# CloudMorph — .gitignore
+# ════════════════════════════════════════════════════════════════
+
+# ── SECURITY: Never commit credentials ──
+*.pem
+*.key
+.aws/
+aws/connection-info.txt
+.env
+.env.local
+secrets/
+
+# ── Node.js ──
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# ── Build artifacts ──
+dist/
+build/
+*.tsbuildinfo
+
+# ── OS files ──
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+
+# ── IDE ──
+.idea/
+.vscode/
+*.code-workspace
+*.sublime-*
+
+# ── Logs ──
+logs/
+*.log
+
+# ── Docker ──
+.docker/
+
+# ── Optional: results directory (uncomment to exclude benchmark data) ──
+# results/

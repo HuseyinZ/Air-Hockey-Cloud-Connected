@@ -1,0 +1,98 @@
+{
+  "meta": {
+    "tool": "CloudMorph Air Hockey Benchmark",
+    "version": "1.0.0",
+    "timestamp": "2026-05-27T17:29:31.755Z",
+    "system": {
+      "cpuModel": "11th Gen Intel(R) Core(TM) i7-11800H @ 2.30GHz",
+      "cpuCount": 16,
+      "totalMemoryGB": 15.7,
+      "platform": "win32",
+      "arch": "x64",
+      "nodeVersion": "v20.15.0",
+      "hostname": "DESKTOP-4HRT503"
+    }
+  },
+  "results": [
+    {
+      "botCount": 4,
+      "matchCount": 6,
+      "totalMs": 3,
+      "avgMatchMs": 0.53,
+      "minMatchMs": 0.23,
+      "maxMatchMs": 0.8,
+      "champion": "Bot-3",
+      "championPoints": 9,
+      "championWins": 3,
+      "cpuUserMs": 0,
+      "cpuSystemMs": 0,
+      "heapUsedMB": 4,
+      "rssMB": 33.6,
+      "timestamp": "2026-05-27T17:29:28.830Z"
+    },
+    {
+      "botCount": 10,
+      "matchCount": 45,
+      "totalMs": 25,
+      "avgMatchMs": 0.56,
+      "minMatchMs": 0.14,
+      "maxMatchMs": 0.97,
+      "champion": "Bot-10",
+      "championPoints": 24,
+      "championWins": 8,
+      "cpuUserMs": 32,
+      "cpuSystemMs": 0,
+      "heapUsedMB": 4.3,
+      "rssMB": 33.6,
+      "timestamp": "2026-05-27T17:29:28.856Z"
+    },
+    {
+      "botCount": 20,
+      "matchCount": 190,
+      "totalMs": 103,
+      "avgMatchMs": 0.54,
+      "minMatchMs": 0.16,
+      "maxMatchMs": 1.27,
+      "champion": "Bot-19",
+      "championPoints": 45,
+      "championWins": 15,
+      "cpuUserMs": 62,
+      "cpuSystemMs": 31,
+      "heapUsedMB": 4.4,
+      "rssMB": 33.7,
+      "timestamp": "2026-05-27T17:29:28.960Z"
+    },
+    {
+      "botCount": 50,
+      "matchCount": 1225,
+      "totalMs": 606,
+      "avgMatchMs": 0.49,
+      "minMatchMs": 0.12,
+      "maxMatchMs": 1.75,
+      "champion": "Bot-41",
+      "championPoints": 111,
+      "championWins": 37,
+      "cpuUserMs": 578,
+      "cpuSystemMs": 47,
+      "heapUsedMB": 5.3,
+      "rssMB": 36,
+      "timestamp": "2026-05-27T17:29:29.566Z"
+    },
+    {
+      "botCount": 100,
+      "matchCount": 4950,
+      "totalMs": 2187,
+      "avgMatchMs": 0.44,
+      "minMatchMs": 0.1,
+      "maxMatchMs": 2.66,
+      "champion": "Bot-77",
+      "championPoints": 216,
+      "championWins": 72,
+      "cpuUserMs": 2157,
+      "cpuSystemMs": 78,
+      "heapUsedMB": 6.8,
+      "rssMB": 41.5,
+      "timestamp": "2026-05-27T17:29:31.754Z"
+    }
+  ]
+}

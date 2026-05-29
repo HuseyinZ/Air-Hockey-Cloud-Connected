@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cloud Air Hockey Tournament</title>
+  <meta name="description" content="10-player round-robin air hockey tournament with AI agents and league table" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============ TOURNAMENT SETUP SCREEN ============ -->
+  <div id="setupScreen" class="screen screen--setup">
+    <div class="setup-card glass">
+      <div class="setup-logo">🏒</div>
+      <h1 class="setup-title">Cloud Air Hockey</h1>
+      <p class="setup-subtitle">Tournament Edition</p>
+
+      <!-- Tab switcher -->
+      <div class="tab-bar">
+        <button class="tab-btn tab-btn--active" data-tab="play">Play</button>
+        <button class="tab-btn" data-tab="server">Server Tournament</button>
+        <button class="tab-btn" data-tab="benchmark">Benchmark</button>
+      </div>
+
+      <!-- ── TAB: Play (original) ── -->
+      <div id="tabPlay" class="tab-panel tab-panel--active">
+        <div class="setup-info">
+          <div class="setup-stat">
+            <span class="setup-stat__number">10</span>
+            <span class="setup-stat__label">Players</span>
+          </div>
+          <div class="setup-stat">
+            <span class="setup-stat__number">45</span>
+            <span class="setup-stat__label">Matches</span>
+          </div>
+          <div class="setup-stat">
+            <span class="setup-stat__number">7</span>
+            <span class="setup-stat__label">Goals to Win</span>
+          </div>
+        </div>
+
+        <div class="player-roster">
+          <h3 class="roster-title">Player Roster</h3>
+          <div id="rosterGrid" class="roster-grid"></div>
+        </div>
+
+        <button id="startTournamentBtn" class="btn btn--primary btn--glow">
+          <span>Start Tournament</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 3l14 9-14 9V3z"/></svg>
+        </button>
+      </div>
+
+      <!-- ── TAB: Server Tournament ── -->
+      <div id="tabServer" class="tab-panel">
+        <p class="tab-desc">Run a headless round-robin tournament on the server with configurable bot count. Results include performance metrics.</p>
+
+        <div class="server-config">
+          <label class="config-label" for="botCountInput">Number of Bots (n)</label>
+          <div class="config-row">
+            <input type="range" id="botCountSlider" min="2" max="100" value="10" class="config-slider" />
+            <input type="number" id="botCountInput" min="2" max="200" value="10" class="config-input" />
+          </div>
+          <div class="config-info">
+            <span>Matches: <strong id="matchCountLabel">45</strong></span>
+            <span>Formula: M = n(n-1)/2</span>
+          </div>
+        </div>
+
+        <button id="runServerTournamentBtn" class="btn btn--primary btn--glow">
+          <span>Run Server Tournament</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </button>
+
+        <div id="serverResult" class="server-result" style="display:none;"></div>
+      </div>
+
+      <!-- ── TAB: Benchmark ── -->
+      <div id="tabBenchmark" class="tab-panel">
+        <p class="tab-desc">Run tournaments at multiple scales to compare performance. Measures CPU utilization, latency, and completion time at each scale.</p>
+
+        <div class="server-config">
+          <label class="config-label">Tournament Sizes</label>
+          <div class="benchmark-sizes">
+            <label><input type="checkbox" value="4" checked /> 4 bots (6 matches)</label>
+            <label><input type="checkbox" value="10" checked /> 10 bots (45 matches)</label>
+            <label><input type="checkbox" value="20" checked /> 20 bots (190 matches)</label>
+            <label><input type="checkbox" value="50" checked /> 50 bots (1225 matches)</label>
+            <label><input type="checkbox" value="100" /> 100 bots (4950 matches)</label>
+          </div>
+        </div>
+
+        <button id="runBenchmarkBtn" class="btn btn--primary btn--glow">
+          <span>Run Scaling Benchmark</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 4-10"/></svg>
+        </button>
+
+        <div id="benchmarkResult" class="server-result" style="display:none;"></div>
+      </div>
+    </div>
+
+    <!-- ── Metrics Dashboard (always visible below setup) ── -->
+    <div id="metricsDashboard" class="metrics-card glass" style="display:none;">
+      <h2 class="metrics-title">System Metrics</h2>
+      <div class="metrics-grid" id="metricsGrid"></div>
+    </div>
+  </div>
+
+  <!-- ============ GAME SCREEN ============ -->
+  <div id="gameScreen" class="screen screen--game" style="display:none;">
+    <div class="game-container">
+
+      <!-- Match Info Bar -->
+      <div class="match-bar glass">
+        <div class="match-bar__progress">
+          <span id="matchLabel" class="match-bar__label">Match 1 of 45</span>
+          <div class="progress-track">
+            <div id="progressFill" class="progress-fill" style="width:0%"></div>
+          </div>
+        </div>
+        <div class="match-bar__versus">
+          <div class="versus-player">
+            <span id="leftPlayerColor" class="player-dot"></span>
+            <span id="leftPlayerName" class="player-name">Player</span>
+          </div>
+          <span class="versus-vs">VS</span>
+          <div class="versus-player">
+            <span id="rightPlayerName" class="player-name">AI</span>
+            <span id="rightPlayerColor" class="player-dot"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- HUD -->
+      <div class="hud">
+        <div class="score-box score-box--left">
+          <span id="leftScore" class="score-value">0</span>
+        </div>
+        <div class="hud-controls">
+          <button id="skipMatchBtn" class="btn btn--small btn--ghost" style="display:none;">Skip AI Match ⏭</button>
+        </div>
+        <div class="score-box score-box--right">
+          <span id="rightScore" class="score-value">0</span>
+        </div>
+      </div>
+
+      <!-- Rink -->
+      <div class="rink-wrap">
+        <div class="table">
+          <div class="table-inner">
+            <span class="table__goal-crease circle"></span>
+            <span class="table__faceoff table__faceoff--top-left circle small"></span>
+            <span class="table__faceoff table__faceoff--bottom-left circle small"></span>
+            <span class="table__blue-line"></span>
+            <span class="table__center-line"></span>
+            <span class="circle center-circle"></span>
+            <span class="table__blue-line table__blue-line--two"></span>
+            <span class="table__faceoff table__faceoff--top-right circle small"></span>
+            <span class="table__faceoff table__faceoff--bottom-right circle small"></span>
+            <span class="table__goal-crease table__goal-crease--two circle"></span>
+          </div>
+        </div>
+        <canvas id="canvas" class="table table--canvas" tabindex="0"></canvas>
+      </div>
+
+      <p id="status" class="status"></p>
+
+      <!-- Match Result Popup -->
+      <div id="matchResult" class="match-result glass" style="display:none;">
+        <h2 id="matchResultTitle" class="match-result__title">Match Complete!</h2>
+        <p id="matchResultDetail" class="match-result__detail"></p>
+        <button id="nextMatchBtn" class="btn btn--primary">Next Match →</button>
+      </div>
+
+      <!-- League Table -->
+      <div class="league-section">
+        <h2 class="league-title">
+          <span class="league-title__icon">🏆</span>
+          League Standings
+        </h2>
+        <div class="league-table-wrap glass">
+          <table id="leagueTable" class="league-table">
+            <thead>
+              <tr>
+                <th class="col-pos">#</th>
+                <th class="col-player">Player</th>
+                <th class="col-num">P</th>
+                <th class="col-num">W</th>
+                <th class="col-num">L</th>
+                <th class="col-num">GF</th>
+                <th class="col-num">GA</th>
+                <th class="col-num">GD</th>
+                <th class="col-num col-pts">Pts</th>
+              </tr>
+            </thead>
+            <tbody id="leagueBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ CHAMPION SCREEN ============ -->
+  <div id="championScreen" class="screen screen--champion" style="display:none;">
+    <div class="champion-card glass">
+      <div class="champion-trophy">🏆</div>
+      <h1 class="champion-title">Tournament Champion</h1>
+      <div id="championName" class="champion-name"></div>
+      <div id="championStats" class="champion-stats"></div>
+      <div class="champion-table-wrap">
+        <h3>Final Standings</h3>
+        <div class="league-table-wrap glass">
+          <table id="finalLeagueTable" class="league-table">
+            <thead>
+              <tr>
+                <th class="col-pos">#</th>
+                <th class="col-player">Player</th>
+                <th class="col-num">P</th>
+                <th class="col-num">W</th>
+                <th class="col-num">L</th>
+                <th class="col-num">GF</th>
+                <th class="col-num">GA</th>
+                <th class="col-num">GD</th>
+                <th class="col-num col-pts">Pts</th>
+              </tr>
+            </thead>
+            <tbody id="finalLeagueBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <button id="restartTournamentBtn" class="btn btn--primary btn--glow">New Tournament 🔄</button>
+    </div>
+  </div>
+
+  <!-- Particles canvas for champion celebration -->
+  <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
+
+  <script src="game.js"></script>
+</body>
+</html>

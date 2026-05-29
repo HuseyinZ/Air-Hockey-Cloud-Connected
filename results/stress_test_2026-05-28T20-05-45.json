@@ -1,0 +1,111 @@
+{
+  "meta": {
+    "tool": "CloudMorph Stress Test",
+    "version": "2.0.0",
+    "timestamp": "2026-05-28T20:09:21.719Z",
+    "parameters": {
+      "maxDurationMs": 60000,
+      "maxHeapMB": 1000,
+      "startN": 100,
+      "stepN": 100,
+      "maxN": 2000
+    },
+    "system": {
+      "cpuModel": "11th Gen Intel(R) Core(TM) i7-11800H @ 2.30GHz",
+      "cpuCount": 16,
+      "totalMemoryGB": 15.7,
+      "platform": "win32",
+      "arch": "x64",
+      "nodeVersion": "v20.15.0",
+      "hostname": "DESKTOP-4HRT503"
+    },
+    "breakingPoint": 600,
+    "breakReason": "Exception thrown: Maximum call stack size exceeded",
+    "summary": {
+      "peakHeapMB": 54.7,
+      "peakRssMB": 108.8,
+      "peakCpuMs": 58984,
+      "avgSystemCpuPercent": 0
+    }
+  },
+  "results": [
+    {
+      "botCount": 100,
+      "matchCount": 4950,
+      "totalMs": 2429,
+      "avgMatchMs": 0.49,
+      "maxMatchMs": 9.82,
+      "cpuUserMs": 2422,
+      "cpuSystemMs": 62,
+      "cpuPercent": 102.3,
+      "heapMB": 5.5,
+      "rssMB": 37.9,
+      "status": "OK",
+      "timestamp": "2026-05-28T20:05:47.509Z"
+    },
+    {
+      "botCount": 200,
+      "matchCount": 19900,
+      "totalMs": 9633,
+      "avgMatchMs": 0.48,
+      "maxMatchMs": 10.35,
+      "cpuUserMs": 9625,
+      "cpuSystemMs": 47,
+      "cpuPercent": 100.4,
+      "heapMB": 16.2,
+      "rssMB": 52.5,
+      "status": "OK",
+      "timestamp": "2026-05-28T20:05:57.158Z"
+    },
+    {
+      "botCount": 300,
+      "matchCount": 44850,
+      "totalMs": 21347,
+      "avgMatchMs": 0.48,
+      "maxMatchMs": 8.46,
+      "cpuUserMs": 21234,
+      "cpuSystemMs": 125,
+      "cpuPercent": 100.1,
+      "heapMB": 18.1,
+      "rssMB": 75.3,
+      "status": "OK",
+      "timestamp": "2026-05-28T20:06:18.520Z"
+    },
+    {
+      "botCount": 400,
+      "matchCount": 79800,
+      "totalMs": 37649,
+      "avgMatchMs": 0.47,
+      "maxMatchMs": 5.42,
+      "cpuUserMs": 37454,
+      "cpuSystemMs": 94,
+      "cpuPercent": 99.7,
+      "heapMB": 38.1,
+      "rssMB": 94.6,
+      "status": "OK",
+      "timestamp": "2026-05-28T20:06:56.194Z"
+    },
+    {
+      "botCount": 500,
+      "matchCount": 124750,
+      "totalMs": 59013,
+      "avgMatchMs": 0.47,
+      "maxMatchMs": 17.2,
+      "cpuUserMs": 56937,
+      "cpuSystemMs": 2047,
+      "cpuPercent": 100,
+      "heapMB": 54.7,
+      "rssMB": 108.8,
+      "status": "OK",
+      "timestamp": "2026-05-28T20:07:55.248Z"
+    },
+    {
+      "botCount": 600,
+      "matchCount": 179700,
+      "totalMs": null,
+      "status": "EXCEPTION",
+      "error": "Maximum call stack size exceeded",
+      "timestamp": "2026-05-28T20:09:21.707Z"
+    }
+  ]
+}

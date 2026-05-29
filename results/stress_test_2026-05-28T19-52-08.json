@@ -1,0 +1,49 @@
+{
+  "meta": {
+    "tool": "CloudMorph Stress Test",
+    "version": "1.0.0",
+    "timestamp": "2026-05-28T19:52:40.725Z",
+    "parameters": {
+      "maxDurationMs": 20000,
+      "maxHeapMB": 500,
+      "startN": 200,
+      "stepN": 100,
+      "maxN": 800
+    },
+    "system": {
+      "cpuModel": "11th Gen Intel(R) Core(TM) i7-11800H @ 2.30GHz",
+      "cpuCount": 2,
+      "totalMemoryGB": 3.8,
+      "platform": "linux",
+      "arch": "x64",
+      "nodeVersion": "v22.22.0",
+      "hostname": "claude"
+    },
+    "breakingPoint": 300,
+    "breakReason": "Tournament time 22.4s exceeded threshold 20s"
+  },
+  "results": [
+    {
+      "botCount": 200,
+      "matchCount": 19900,
+      "totalMs": 9824,
+      "avgMatchMs": 0.49,
+      "maxMatchMs": 15.95,
+      "heapMB": 15.2,
+      "rssMB": 72.9,
+      "status": "OK",
+      "timestamp": "2026-05-28T19:52:18.325Z"
+    },
+    {
+      "botCount": 300,
+      "matchCount": 44850,
+      "totalMs": 22395,
+      "avgMatchMs": 0.5,
+      "maxMatchMs": 10.09,
+      "heapMB": 28.6,
+      "rssMB": 98.1,
+      "status": "FAIL",
+      "timestamp": "2026-05-28T19:52:40.725Z"
+    }
+  ]
+}

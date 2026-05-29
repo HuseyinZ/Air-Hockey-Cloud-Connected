@@ -1,0 +1,4 @@
+botCount,matchCount,totalMs,avgMatchMs,maxMatchMs,heapMB,rssMB,status,timestamp
+100,4950,2513,0.51,9.38,6.6,62.3,"OK","2026-05-28T19:50:23.722Z"
+200,19900,9914,0.5,6.42,11.9,76.5,"OK","2026-05-28T19:50:33.643Z"
+300,44850,,,,,,"EXCEPTION","2026-05-28T19:50:33.644Z"

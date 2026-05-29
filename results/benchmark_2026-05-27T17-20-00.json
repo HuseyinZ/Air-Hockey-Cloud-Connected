@@ -1,0 +1,98 @@
+{
+  "meta": {
+    "tool": "CloudMorph Air Hockey Benchmark",
+    "version": "1.0.0",
+    "timestamp": "2026-05-27T17:20:05.590Z",
+    "system": {
+      "cpuModel": "11th Gen Intel(R) Core(TM) i7-11800H @ 2.30GHz",
+      "cpuCount": 2,
+      "totalMemoryGB": 3.8,
+      "platform": "linux",
+      "arch": "x64",
+      "nodeVersion": "v22.22.0",
+      "hostname": "claude"
+    }
+  },
+  "results": [
+    {
+      "botCount": 4,
+      "matchCount": 6,
+      "totalMs": 16,
+      "avgMatchMs": 2.67,
+      "minMatchMs": 0.45,
+      "maxMatchMs": 8.29,
+      "champion": "Bot-4",
+      "championPoints": 6,
+      "championWins": 2,
+      "cpuUserMs": 28.666,
+      "cpuSystemMs": 0.918,
+      "heapUsedMB": 5.1,
+      "rssMB": 54.3,
+      "timestamp": "2026-05-27T17:20:02.459Z"
+    },
+    {
+      "botCount": 10,
+      "matchCount": 45,
+      "totalMs": 23,
+      "avgMatchMs": 0.5,
+      "minMatchMs": 0.23,
+      "maxMatchMs": 1.08,
+      "champion": "Bot-5",
+      "championPoints": 18,
+      "championWins": 6,
+      "cpuUserMs": 27.383,
+      "cpuSystemMs": 0,
+      "heapUsedMB": 4.6,
+      "rssMB": 52.9,
+      "timestamp": "2026-05-27T17:20:02.482Z"
+    },
+    {
+      "botCount": 20,
+      "matchCount": 190,
+      "totalMs": 93,
+      "avgMatchMs": 0.49,
+      "minMatchMs": 0.18,
+      "maxMatchMs": 1.35,
+      "champion": "Bot-17",
+      "championPoints": 51,
+      "championWins": 17,
+      "cpuUserMs": 93.267,
+      "cpuSystemMs": 0,
+      "heapUsedMB": 5,
+      "rssMB": 52.9,
+      "timestamp": "2026-05-27T17:20:02.575Z"
+    },
+    {
+      "botCount": 50,
+      "matchCount": 1225,
+      "totalMs": 600,
+      "avgMatchMs": 0.49,
+      "minMatchMs": 0.13,
+      "maxMatchMs": 2.12,
+      "champion": "Bot-32",
+      "championPoints": 111,
+      "championWins": 37,
+      "cpuUserMs": 601.786,
+      "cpuSystemMs": 0,
+      "heapUsedMB": 5.1,
+      "rssMB": 55.2,
+      "timestamp": "2026-05-27T17:20:03.176Z"
+    },
+    {
+      "botCount": 100,
+      "matchCount": 4950,
+      "totalMs": 2412,
+      "avgMatchMs": 0.49,
+      "minMatchMs": 0.11,
+      "maxMatchMs": 2.18,
+      "champion": "Bot-92",
+      "championPoints": 222,
+      "championWins": 74,
+      "cpuUserMs": 2406.298,
+      "cpuSystemMs": 7.733,
+      "heapUsedMB": 6.2,
+      "rssMB": 60.4,
+      "timestamp": "2026-05-27T17:20:05.590Z"
+    }
+  ]
+}
