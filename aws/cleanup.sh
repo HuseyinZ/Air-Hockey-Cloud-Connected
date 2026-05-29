@@ -1,8 +1,5 @@
 #!/bin/bash
-# ═══════════════════════════════════════════════════════════
-# CloudMorph Air Hockey — AWS Cleanup Script
-# Tears down all ECS resources to avoid ongoing charges.
-# ═══════════════════════════════════════════════════════════
+
 
 set -euo pipefail
 
