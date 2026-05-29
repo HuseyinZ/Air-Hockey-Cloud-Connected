@@ -1,8 +1,5 @@
 #!/bin/bash
-# ═══════════════════════════════════════════════════════════
-# CloudMorph — AWS Academy Cleanup
-# Lab kapanmadan önce çalıştır (kredit tasarrufu)
-# ═══════════════════════════════════════════════════════════
+
 
 set -euo pipefail
 
