@@ -1,9 +1,4 @@
 #!/bin/bash
-# ═══════════════════════════════════════════════════════════
-# CloudMorph Air Hockey — AWS Academy EC2 Deployment
-# ECR/ECS yerine EC2 + Docker Compose kullanır.
-# Learner Lab kısıtlamalarıyla uyumlu.
-# ═══════════════════════════════════════════════════════════
 
 set -euo pipefail
 
