@@ -1,18 +1,10 @@
 #!/bin/bash
-# ═══════════════════════════════════════════════════════════
-# CloudMorph Air Hockey — AWS ECS Deployment Script
-# ═══════════════════════════════════════════════════════════
-#
-# Prerequisites:
-#   - AWS CLI configured (aws configure)
-#   - Docker installed and running
-#   - Permissions: ECR, ECS, IAM, CloudWatch Logs, VPC
-#
+
 # Usage:
 #   chmod +x deploy.sh
 #   ./deploy.sh                    # uses defaults
 #   ./deploy.sh us-east-1 my-cluster
-# ═══════════════════════════════════════════════════════════
+
 
 set -euo pipefail
 
