@@ -1,12 +1,9 @@
 #!/bin/bash
-# ═══════════════════════════════════════════════════════════
-# Run benchmark against a remote (AWS ECS) deployment
-# and save results alongside local benchmarks for comparison.
-#
+
 # Usage:
 #   ./run-remote-benchmark.sh <PUBLIC_IP>
 #   ./run-remote-benchmark.sh 54.123.45.67
-# ═══════════════════════════════════════════════════════════
+
 
 set -euo pipefail
 
