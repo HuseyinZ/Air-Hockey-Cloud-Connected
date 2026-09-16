@@ -1,85 +1,51 @@
-# CloudMorph — Updated Project Narrative
+# Project Rationale
 
-## Yeni Hikaye (Eski vs Yeni)
+The first version of this project was based on a simple question: how does the application behave locally compared with running it on AWS?
 
-### ❌ Eski yaklaşım
-"AWS yerel makineden daha hızlı çalışır mı?"
-→ Zayıf motivasyon: ölçek belirsiz, sonuç tahmin edilebilir
+For the final version, I focused on a more measurable problem: finding the workload size where a constrained local Docker setup starts to become impractical, and then running the same workload in the cloud for comparison.
 
-### ✅ Yeni yaklaşım
-"Yerel Docker hangi noktada **yetersiz kalır**? AWS bu sınırı **aşmamızı sağlar**."
-→ Güçlü motivasyon: somut kırılma noktası, AWS migration zorunluluk
+## Test flow
 
-## Yeni Proje Akışı
+1. Run a baseline benchmark locally.
+2. Increase the number of tournament participants gradually.
+3. Monitor execution time, CPU usage, memory usage and API latency.
+4. Identify the point where the local environment becomes too slow or resource constrained.
+5. Deploy the same application to AWS.
+6. Run the same benchmark remotely and compare the results.
 
-1. **Baseline ölçümü** — Yerel Docker'da küçük ölçeklerde benchmark
-2. **Stress test** — n'i artırarak kırılma noktasını bul
-3. **Kırılma noktasını tanımla** — "n = X'te tournament > 20s, dolayısıyla pratik değil"
-4. **AWS deployment** — Aynı kırılma noktasında AWS'nin performansını ölç
-5. **Karşılaştır** — AWS'in yerel limitten ne kadar üstüne çıktığını göster
+## Breaking-point criteria
 
-## Kırılma Noktası Tanımları
+The benchmark can be considered beyond the useful local limit when one or more of these conditions occur:
 
-Aşağıdaki koşullardan **biri** sağlandığında "kırıldı" kabul edilir:
+- tournament execution takes too long for interactive use
+- CPU remains close to full utilization
+- memory usage approaches the container limit
+- API requests start timing out or responding too slowly
 
-| Kriter | Eşik (varsayılan) | Anlamı |
-|--------|---------------------|--------|
-| Tournament süresi | > 20 saniye | Kullanıcı bekleyemez |
-| Heap memory | > 500 MB | Container OOM riski |
-| CPU saturasyon | > 95% sürekli | Sistem responsiv değil |
-| API timeout | > 30s response | Servis kullanılamaz |
+These limits can be adjusted depending on the Docker resource configuration.
 
-## Komutlar
+## Stress testing
 
-### Stress Test (kırılma noktasını bul)
+Example:
 
 ```bash
-# Varsayılan: 50'den başla, 50'şer artır, 2000'e kadar
-node backend/stress-test.js
-
-# Hızlı tarama (timeout 20s)
 node backend/stress-test.js --max-time 20000 --start 100 --step 100
-
-# Sıkı bellek limiti
-node backend/stress-test.js --max-heap 100
-
-# Geniş aralık
-node backend/stress-test.js --start 10 --step 50 --max 5000
 ```
 
-### Kısıtlı Docker (gerçekçi limit)
+To test under stricter local resource limits:
 
 ```bash
-# 0.5 CPU + 256MB RAM ile çalıştır — gerçek production limiti gibi
 docker compose -f docker-compose.constrained.yml up --build
 ```
 
-Bu modda kırılma noktası çok daha düşük n değerinde olur (örn. n=100 civarı).
+## Cloud comparison
 
-### AWS Karşılaştırması
+After deploying the backend, the same benchmark sizes can be sent to the remote API:
 
 ```bash
-# AWS'ye deploy
-cd aws && ./ec2-deploy.sh
-
-# Aynı stress test'i AWS API üzerinden çalıştır
 curl -X POST http://AWS_IP:3000/api/benchmark \
   -H "Content-Type: application/json" \
-  -d '{"sizes": [100, 200, 300, 500, 1000, 2000]}'
+  -d '{"sizes":[100,200,300,500,1000]}'
 ```
 
-## Rapor için Kullanılabilir Cümleler
-
-> "Local Docker environment was tested with progressively larger tournaments.
-> The system reliably handled tournaments up to n=200 bots (19,900 matches)
-> in under 10 seconds. However, at n=300 (44,850 matches), tournament
-> completion time exceeded our 20-second threshold, indicating that local
-> execution becomes impractical for large-scale workloads. This motivated
-> the migration to AWS ECS, where the same workload completed in X seconds."
-
-> "We define the breaking point as the smallest tournament size n for which
-> any of the following holds: (i) total completion time exceeds 20 seconds,
-> (ii) container memory usage exceeds 500 MB, or (iii) the API becomes
-> unresponsive. Under default container limits, this point was observed at
-> n = X. AWS Fargate with equivalent task definition handled n = Y bots
-> within the same thresholds, representing a Y/X × improvement in capacity."
+The purpose of the comparison is not to assume that the cloud environment will always be faster. The useful result is to see how the workload behaves under different resource limits and where each setup reaches its practical limit.
